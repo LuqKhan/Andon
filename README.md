@@ -48,9 +48,19 @@ The first run in a project asks three questions — where the app runs, how it g
 logged-in browser, and whether you use tickets — and offers to save the permissions it needs
 so later runs don't keep asking. Say yes to that offer.
 
-The first run is slow because it is learning your app's pages. It saves what it learns in
-`.claude/qa/` and gets faster every run after. Commit that folder if you want the team to
-share the learning; gitignore it if you'd rather keep it per-person. Both work.
+Better: run `/qa setup` once right after installing. It does all the onboarding — questions,
+permissions, learning your app's pages — in one sitting, so your first real check starts warm.
+
+## Sharing what it learns
+
+The agent saves what it learns about your app (pages, routes, quirks — never expectations,
+never credentials) in `.claude/qa/ui-map/` and gets faster every run. Three ways to handle it:
+
+- **Commit the folder** to your project — the whole team shares the learning through the repo.
+- **Point it at a shared map repo** — during `/qa setup`, give it any private git repo your
+  team owns; the map syncs there instead, and a new teammate's first run starts warm off
+  everyone else's learning. Use this when you don't want QA files in the main repo.
+- **Gitignore it** — per-person maps, everyone learns separately. Fine for solo use.
 
 ## Quick checks
 

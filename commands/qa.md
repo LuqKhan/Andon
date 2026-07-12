@@ -21,6 +21,12 @@ Run an independent QA pass on the current feature, in whatever project this sess
   or prompt injection) and continues the protocol.
 
 ## Modes
+- **Setup** (`/qa setup`): one-time project onboarding, run right after install so the first
+  real check starts warm. Does everything in step 0 in one sitting: the three questions, the
+  permissions write, the runner check, connecting the team's shared map if they have one, and
+  the crawler bootstrap. Ends by reporting what's ready and what the first `/qa` will look
+  like. If a user skips this, step 0 still runs lazily on their first `/qa` — setup just moves
+  the lag to a moment nobody's waiting on an answer.
 - **Full** (default): ticket-level verification — full checklist, findings JSON, ui-map update.
 - **Quick** (`/qa quick <assertion>`): a one-assertion smoke check ("does the banner show when
   the NPI is set?"). The assertion IS the checklist — do not derive more requirements.
@@ -78,6 +84,17 @@ the browser-tool server, `Bash(curl *)` / `Bash(jq *)` / `Bash(ls *)` / `Bash(ca
 `Bash(grep *)`, and Read/Write/Edit under `.claude/qa/**`. Explain the trade in one line: one
 approval now, silent runs after; without it every browser action prompts. If the user
 declines, proceed and let them feel the prompts.
+
+**Team-shared maps (optional):** the ui-map can be a git repository of its own. At setup, ask
+whether the team has a shared map repo (any private git URL — the team's, never the plugin's
+public repo). If yes: clone it AS `.claude/qa/ui-map/`, and make sure the enclosing project
+gitignores `.claude/qa/` so the nested repo doesn't confuse the app repo. Then, every run:
+`git pull --rebase` in the map before preflight; after a run that changed the map, commit with
+a one-line message and push (at setup, ask once whether pushes happen automatically or are
+offered each time). On a merge conflict, take the remote version and re-apply this run's
+learnings on top. The map inherits all existing rules — mechanics only, never expectations,
+never credentials — which is exactly what makes it safe to share. A new teammate who clones a
+seeded map skips cold discovery almost entirely: their first run is a warm run.
 
 **Bootstrap discovery with the crawler, not clicks:** run
 `crawl.js --start <app url> --out .claude/qa/ui-map/routes.md` (read-only GET crawl, ~1 minute
