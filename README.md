@@ -4,6 +4,12 @@ qa-agent is a Claude Code plugin. It adds a `/qa` command that checks your **run
 against what you asked to be built, and reports what works, what's broken, what was never
 built, and what it couldn't test.
 
+![The verification agent probing a fix in a real app](media/demo.gif)
+
+*Above: the agent probing a just-shipped fix on its own. It types an invalid NPI into the
+settings form and saves. The old build silently accepted it; the app now rejects it with an
+error, so the check comes back verified — no human clicked anything.*
+
 ## How it works
 
 When you run `/qa`, it starts a separate verification agent with a clean slate. That agent:
