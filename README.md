@@ -1,11 +1,8 @@
 # Andon
 
-Andon is a QA agent that runs inside Claude Code. After you (or a coding agent) make a
-change, Andon checks the **running app** against what the ticket asked for and reports what
-works, what's broken, what was never built, and what it couldn't test.
-
-The name comes from the andon cord on a factory line — anyone can pull it to stop the line
-when they spot a defect.
+Andon is a Claude Code plugin. It adds a `/qa` command that checks your **running app**
+against what you asked to be built, and reports what works, what's broken, what was never
+built, and what it couldn't test.
 
 ## How it works
 
@@ -13,8 +10,8 @@ When you run `/qa`, Andon starts a separate verification agent with a clean slat
 
 1. Reads what you asked to test — a plain sentence or a ticket — and writes down what "done"
    means, before looking at the app.
-2. Opens your running app in your browser and tests each requirement, using only the UI and
-   the public API — the same surfaces a real user has.
+2. Opens your running app in your browser and tests each requirement the way a user would.
+   If your product has an API, it can test that too.
 3. Writes a report that your coding session reads and fixes against. Then you run it again.
 
 The verifier never sees your code, your diff, or your conversation. That's the point: an
