@@ -11,7 +11,8 @@ when they spot a defect.
 
 When you run `/qa`, Andon starts a separate verification agent with a clean slate. That agent:
 
-1. Reads the ticket and writes down what "done" means — before looking at the app.
+1. Reads what you asked to test — a plain sentence or a ticket — and writes down what "done"
+   means, before looking at the app.
 2. Opens your running app in your browser and tests each requirement, using only the UI and
    the public API — the same surfaces a real user has.
 3. Writes a report that your coding session reads and fixes against. Then you run it again.
@@ -39,13 +40,16 @@ author can't.
 In your project:
 
 ```
-/qa PROJ-1234
 /qa "clicking save should clear the reminder banner"
+/qa PROJ-1234        # if your team tracks tickets, an ID works too
 ```
 
+Just describe what you want tested, in your own words. Tickets are optional — if your team
+has them, Andon can read them, but a plain sentence is the normal way to use it.
+
 The first run in a project asks three questions — where the app runs, how Andon gets a
-logged-in browser, and where tickets live — and offers to save the permissions it needs so
-later runs don't keep asking. Say yes to that offer.
+logged-in browser, and whether you use tickets — and offers to save the permissions it needs
+so later runs don't keep asking. Say yes to that offer.
 
 The first run is slow because Andon is learning your app's pages. It saves what it learns in
 `.claude/qa/` and gets faster every run after. Commit that folder if you want the team to

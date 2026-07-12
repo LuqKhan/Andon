@@ -69,7 +69,8 @@ questions before anything else, then write the answers into the ui-map README yo
 2. How does the verifier get an authenticated session (pre-logged-in browser it can attach
    to, or a session the user will establish before each run)? The verifier never enters
    credentials.
-3. Where does intent live — a tickets directory, an issue tracker, or pasted text?
+3. Will you describe what to test right in the prompt (the default — most teams do this), or
+   is there also a tickets directory / issue tracker Andon should read when you pass an ID?
 
 Then, still at cold start: **offer to write the recommended permission rules into the
 project's `.claude/settings.local.json`** (merge with existing settings, never replace) —
@@ -87,9 +88,14 @@ from the ticket. Whether `.claude/qa/` is committed or gitignored is the user's 
 the README whichever they chose.
 
 ## 1. Assemble the QA brief
-- **Intent (ground truth):** the ticket or feature description from the source established in
-  step 0. If none exists, ask — never reconstruct intent from the diff; that inherits the
-  author's misreading.
+- **Intent (ground truth):** most users simply write what they want tested —
+  `/qa "saving a valid NPI should clear the missing-NPI banner"` — and that text IS the
+  intent. Treat `$ARGUMENTS` as a ticket ID only when it looks like one AND the project has a
+  configured ticket source (step 0). If there's neither a description nor a ticket, ask —
+  never reconstruct intent from the diff; that inherits the author's misreading.
+- **Scope discipline for freehand intent:** a one-line description yields a small checklist —
+  the stated behavior, its inverse, and directly implied edge cases. Never inflate a sentence
+  into an invented spec; open questions go under `ambiguities`.
 - **Environment expectation:** app URL; expected deployed build (branch/commit) if knowable;
   every config flag the feature needs, its required value, and confirmation it was deployed.
   Ask the user rather than assuming defaults are live — feature gates often live in server
