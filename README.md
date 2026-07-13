@@ -1,6 +1,6 @@
 # qa-agent
 
-**qa-agent lets a second agent QA what your coding agent built, in your real browser.**
+**qa-agent tests what your coding agent built, in your browser.**
 
 Your coding agent says done. This checks whether that's true. A fresh agent with a clean
 slate reads what you asked for, drives your running app, and reports back: what works,
