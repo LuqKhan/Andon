@@ -38,21 +38,6 @@ reads it, fixes, and you run it again.
 
 ---
 
-## Why a second agent
-
-The verifier never sees your code or your conversation. That's deliberate. An agent that
-checks its own work misses the same things it missed while writing it. A fresh reader
-doesn't.
-
-Missing is the state that matters most. Coding agents like to say done when they've built
-most of it. And when what you asked is too vague to judge, the agent asks you instead of
-guessing.
-
-The report is also written to `.claude/qa/runs/` as JSON
-([format](examples/findings-example.json)), so agents can consume it directly.
-
----
-
 ## Make it fast
 
 Most of a run is the model thinking between browser clicks. The first time the agent tests
